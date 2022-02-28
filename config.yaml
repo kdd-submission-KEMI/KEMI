@@ -1,0 +1,76 @@
+name: "Multi-Interest"
+n_gpu: 1
+data_loader:
+    batch_size: 64
+    shuffle: true
+    num_workers: 1
+
+data:
+
+  #datapath: "../data_process/news"
+  datapath: "../../datasets/news"
+  dataset: "/news"
+  savepath: "/out"
+  user_history_file: "/history.pkl"
+  train_file: "/train.pkl"
+  val_file: "/valid.pkl"
+  test_file: "/test.pkl"
+#  infer_file: "/infer_tiny.pkl"
+  doc_feature_entity_file: "/item_entity.pkl" # docid to entity ids triple
+  doc_feature_embedding_file: "/item_vec_dict.pkl" # doc embedding file
+  kg_file: "/triples.pkl" # entity triples
+  entity_embedding_file: "/entity2vec.pkl" # entity embedding
+  entity2id_file: "/entity2id.pkl" # entity2id
+#  doc2id_file: "/doc2id.pkl" # doc 2 id
+
+#  user_embedding_file: "/user_embedding.pkl"
+#  item_embedding_file: "/item_embedding.pkl"
+
+
+#  datapath: "../data_process/dianping-uni/tiny"
+#  dataset: "/dianping-uni"
+#  savepath: "/out"
+#  user_history_file: "/history_tiny.pkl"
+#  train_file: "/train_tiny.tsv"
+#  val_file: "/valid_tiny.tsv"
+#  test_file: "/train_tiny.tsv"
+##  infer_file: "/infer_tiny.pkl"
+#  doc_feature_entity_file: "/item_entity.pkl" # docid to entity ids triple
+#  doc_feature_embedding_file: "/item_vec_dict.pkl" # doc embedding file
+#  kg_file: "/triples.pkl" # entity triples
+#  entity_embedding_file: "/entity2vec.pkl" # entity embedding
+#  entity2id_file: "/entity2id.pkl" # entity2id
+##  doc2id_file: "/doc2id.pkl" # doc 2 id
+#
+##  user_embedding_file: "/user_embedding.pkl"
+##  item_embedding_file: "/item_embedding.pkl"
+
+
+model:
+  doc_embedding_size: 768
+  entity_embedding_size: 100
+  embedding_size: 128
+  user_his_num: 50
+  item_entity_num: 50
+  interest_num: 10
+  recall_num: 10
+  in_feats: 128
+  hid_feats: 128
+  out_feats: 128
+  alpha: 0.5
+  dis_loss_weight: 0.1
+
+trainer:
+  epochs: 100
+  train_neg_num: 4
+  save_dir: "./out/saved/"
+  save_period: 1
+  early_stop: 3
+  monitor: "val_auc"
+  verbosity: 2
+
+optimizer:
+  type: "Adam"
+  lr: 0.00002
+  weight_decay: 0.000001
+  amsgrad: true
